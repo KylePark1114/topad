@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #ecebe7; font-family: 'Pretendard', sans-serif; color: #111; }
+    a { color: #111; text-decoration: none; }
+    a:hover { color: #A8890F; }
+    ::selection { background: #f5c518; color: #111; }
+
+    @media (max-width: 900px) {
+      section[data-screen-label="Hero"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Stats"] > div:first-child { grid-template-columns: repeat(2,1fr) !important; }
+      section[data-screen-label="Industry playbook"] > div { grid-template-columns: repeat(2,1fr) !important; }
+      section[data-screen-label="Capability"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Benefits row"] { grid-template-columns: repeat(2,1fr) !important; }
+      section[data-screen-label="Process steps"] { grid-template-columns: repeat(2,1fr) !important; }
+      section[data-screen-label="Guarantee"] { grid-template-columns: repeat(2,1fr) !important; }
+      section[data-screen-label="Kakao review"] > div { flex: 0 0 calc(50% - 8px) !important; }
+    }
+
+    @media (max-width: 640px) {
+      header > div, section[data-screen-label], footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+      section[data-screen-label="Hero"] { padding-left: 20px !important; padding-right: 20px !important; }
+      section[data-screen-label="Services"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Lineup"] > div { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Lineup"] > div > div { aspect-ratio: 4/3 !important; }
+      section[data-screen-label="Benefits row"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Process steps"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Guarantee"] { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Industry playbook"] > div { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Stats"] > div:first-child { grid-template-columns: 1fr !important; }
+      footer > div:first-child { grid-template-columns: 1fr !important; }
+      section[data-screen-label="Kakao review"] > div > div { transform: none !important; flex-wrap: wrap !important; }
+      section[data-screen-label="Kakao review"] > div > div > div { flex: 0 0 calc(50% - 8px) !important; }
+    }
+  </style>
+</helmet>
+
+<div style="width:100%; background:#ecebe7; overflow-x:hidden; color:#111;">
+
+  <!-- NOTICE BAR -->
+  <div style="background:#111; color:#888; text-align:center; padding:9px 16px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.03em;">
+    실전 데이터로 증명하는 플레이스 상위노출 · 계약연장률 98% · 담당 매니저 전담 배정
+  </div>
+
+  <!-- NAV -->
+  <header data-screen-label="Header" style="position:sticky; top:0; z-index:50; background:rgba(236,235,231,0.92); backdrop-filter:blur(8px); border-bottom:1px solid rgba(0,0,0,0.08);">
+    <div style="max-width:1360px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center;">
+        <img src="assets/topad-logo-light.png" alt="TOP AD" style="height:51px; width:auto; display:block;"/>
+      </div>
+      <div style="display:flex; align-items:center; gap:28px;">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
+          <a href="#" style="font-size:14px; font-weight:600; display:none;" class="nav-link">{{ link }}</a>
+        </sc-for>
+        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#f5c518; color:#111; font-weight:700; font-size:14px; padding:12px 22px; border-radius:999px; transition:transform 0.15s ease; display:flex; align-items:center; gap:6px;" style-hover="transform:translateY(-3px);"><svg width="15" height="15" viewBox="0 0 24 24" fill="#111"><path d="M12 2C6.48 2 2 5.66 2 10.2c0 2.9 1.87 5.45 4.7 6.9-.2.76-.74 2.76-.85 3.19-.13.53.2.53.42.38.17-.11 2.7-1.83 3.8-2.58.62.09 1.26.14 1.93.14 5.52 0 10-3.66 10-8.2S17.52 2 12 2z"/></svg>상담 신청하기</a>
+        <button onClick="{{ toggleNav }}" aria-label="menu" style="display:grid; grid-template-columns:repeat(3,4px); grid-template-rows:repeat(3,4px); gap:3px; width:34px; height:34px; place-items:center; background:transparent; border:1px solid rgba(0,0,0,0.15); border-radius:10px; cursor:pointer;">
+          <span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span>
+          <span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span>
+          <span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:60; background:#111; color:#ecebe7; display:flex; flex-direction:column;">
+      <div style="display:flex; align-items:center; justify-content:space-between; max-width:1360px; margin:0 auto; width:100%; padding:20px 32px;">
+        <div style="display:flex; align-items:center;">
+          <img src="assets/topad-logo-dark.png" alt="TOP AD" style="height:48px; width:auto; display:block;"/>
+        </div>
+        <button onClick="{{ closeNav }}" style="width:34px; height:34px; border-radius:10px; border:1px solid rgba(255,255,255,0.25); background:transparent; color:#ecebe7; font-size:18px; cursor:pointer;">✕</button>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:18px; padding:0 clamp(32px,6vw,80px);">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
+          <a href="#" onClick="{{ closeNav }}" style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,7vw,64px); color:#ecebe7;" style-hover="color:#f5c518;">{{ link }}</a>
+        </sc-for>
+        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" onClick="{{ closeNav }}" style="margin-top:12px; background:#f5c518; color:#111; font-weight:700; font-size:15px; padding:14px 26px; border-radius:999px;">카카오톡 상담 신청 ↗</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- HERO -->
+  <section data-screen-label="Hero" style="max-width:1360px; margin:0 auto; padding:56px 32px 40px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:32px; align-items:center;">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px;">
+        <p style="max-width:420px; font-size:14px; line-height:1.7; color:#555; margin:0;">플레이스 상위노출 / 블로그 · 영수증 리뷰 / 바이럴 마케팅까지 — 매장 마케팅 전 채널을 책임지는 디지털 에이전시입니다.</p>
+        <span style="font-size:22px; flex-shrink:0;">↗</span>
+      </div>
+      <h1 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,5.2vw,76px); line-height:0.98; margin:32px 0 0; text-transform:uppercase;">WE RANK<br/>YOUR PLACE<br/><span style="color:#f5c518; -webkit-text-stroke:2px #111;">NO.1</span></h1>
+    </div>
+    <div style="position:relative; border-radius:18px; overflow:hidden; width:100%; height:clamp(260px,26vw,400px);">
+      <img src="assets/hero-handshake.png" alt="탑애드와 함께하는 파트너십" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section data-screen-label="Stats" style="max-width:1360px; margin:0 auto; padding:0 32px;">
+    <div ref="{{ statsRef }}" style="display:grid; grid-template-columns:repeat(4,1fr); border-radius:18px; overflow:hidden; border:1px solid rgba(0,0,0,0.08);">
+      <div style="padding:32px 26px; background:#fff; border-right:1px solid rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; gap:36px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">BUSINESS</span>
+        <div><p style="margin:0 0 6px; font-size:14px; color:#555;">누적 진행 광고주</p><p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(28px,3vw,42px);">{{ clientsDisplay }}</p></div>
+      </div>
+      <div style="padding:32px 26px; background:#fff; border-right:1px solid rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; gap:36px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">TEAM</span>
+        <div><p style="margin:0 0 6px; font-size:14px; color:#555;">운영 팀 구성</p><p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(28px,3vw,42px);">{{ teamsDisplay }}</p></div>
+      </div>
+      <div style="padding:32px 26px; background:#fff; border-right:1px solid rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; gap:36px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">MEMBER</span>
+        <div><p style="margin:0 0 6px; font-size:14px; color:#555;">소속 직원</p><p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(28px,3vw,42px);">{{ staffDisplay }}</p></div>
+      </div>
+      <div style="padding:32px 26px; background:#2a2a2a; color:#fff; display:flex; flex-direction:column; justify-content:space-between; gap:16px;">
+        <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.3); border-radius:999px; padding:5px 12px; width:fit-content;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>WHO WE ARE</span>
+        <p style="margin:0; font-size:13px; line-height:1.7; color:#eee;">우리는 어떤 매장에게도 통하지 않는 획일화된 전략 대신, 매장 각각에 맞는 상위노출 전략을 제안합니다. 채널의 경계 없이 광고주가 원하는 결과를 만들어냅니다.</p>
+        <a href="#services" style="background:#f5c518; color:#111; font-weight:700; font-size:13px; padding:12px 16px; border-radius:999px; text-align:center;" style-hover="background:#ffd94f;">탑애드의 남다른 노하우</a>
+      </div>
+    </div>
+    <div style="margin-top:8px; background:#f5c518; border-radius:999px; padding:12px 28px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.05em; color:#111;">1,000+ ADVERTISERS · 30+ TEAM MEMBERS · 98% RETENTION RATE</div>
+  </section>
+
+  <!-- KAKAO REVIEW -->
+  <section data-screen-label="Kakao review" style="max-width:1360px; margin:0 auto; padding:56px 32px 0;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:20px;">
+      <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(0,0,0,0.15); border-radius:999px; padding:5px 12px;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>REAL TALK</span>
+    </div>
+    <div style="max-width:1100px; margin:0 auto; overflow:hidden;">
+      <div style="display:flex; gap:16px; transform:{{ kakaoSlideTransform }}; transition:transform 0.7s ease;">
+        <sc-for list="{{ kakaoTalks }}" as="kt" hint-placeholder-count="5">
+          <div style="flex:0 0 calc(25% - 12px); aspect-ratio:9/16; border-radius:16px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); background:#111;">
+            <img src="{{ kt.src }}" alt="카카오톡 후기 대화" style="width:100%; height:100%; object-fit:cover; object-position:top; display:block;"/>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG WORDMARK BAND -->
+  <section data-screen-label="Slogan 1" style="background:#111; color:#ecebe7; margin-top:64px; padding:80px 32px 48px;">
+    <div style="max-width:1360px; margin:0 auto;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(38px,7vw,104px); line-height:0.98; margin:0; text-transform:uppercase;">PLACE RANKING<br/>DIGITAL AGENCY</h2>
+      <div style="margin-top:56px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">INDUSTRY PLAYBOOK</span>
+        <p style="margin:0; font-size:18px; color:#eee; max-width:520px; line-height:1.6;">업종마다 통하는 전략은 다릅니다.<br/>탑애드는 업종별 맞춤 운영 방식을 설계합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRY PLAYBOOK -->
+  <section data-screen-label="Industry playbook" style="background:#111; padding:0 32px 80px;">
+    <div style="max-width:1360px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+      <sc-for list="{{ industries }}" as="ind" hint-placeholder-count="4">
+        <div style="background:#1c1c1c; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:26px 22px; min-height:340px; display:flex; flex-direction:column; justify-content:space-between; gap:18px;">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#f5c518; letter-spacing:0.04em;">{{ ind.tag }}</span>
+            <p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; color:#ecebe7;">{{ ind.title }}</p>
+            <sc-if value="{{ ind.recommend }}" hint-placeholder-val="{{ false }}">
+              <span style="display:inline-flex; align-items:center; gap:6px; background:#f5c518; color:#111; font-weight:700; font-size:11.5px; padding:6px 12px; border-radius:999px; width:fit-content;">추천: {{ ind.recommend }}</span>
+            </sc-if>
+            <p style="margin:0; font-size:14.5px; color:#999; line-height:1.6;">{{ ind.examples }}</p>
+          </div>
+          <p style="margin:0; font-size:13px; color:#ccc; line-height:1.7;">{{ ind.strategy }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CAPABILITY -->
+  <section data-screen-label="Capability" style="max-width:1360px; margin:0 auto; padding:80px 32px 32px; display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:end;">
+    <div>
+      <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(0,0,0,0.15); border-radius:999px; padding:5px 12px; margin-bottom:20px;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>CAPABILITY</span>
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(30px,4vw,52px); line-height:1.08; margin:0;">탑애드의 특출나고<br/>확고한 상위노출 노하우</h2>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <p style="margin:0; font-size:14px; line-height:1.7; color:#555;">지금 매장 마케팅은 하나의 채널만으론 부족합니다. 플레이스부터 블로그, 영수증, 바이럴까지 — 탑애드와 함께하세요!</p>
+      <a href="#" style="background:#f5c518; color:#111; font-weight:700; font-size:14px; padding:14px 20px; border-radius:999px; text-align:center;" style-hover="background:#ffd94f;">성공 사례로 증명하는 프로젝트</a>
+    </div>
+  </section>
+
+  <section id="services" data-screen-label="Services" style="max-width:1360px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(2,1fr); gap:8px;">
+    <sc-for list="{{ services }}" as="svc" hint-placeholder-count="4">
+      <div style="padding:32px; background:#fff; border-radius:20px; border:1px solid rgba(0,0,0,0.08); display:flex; flex-direction:column; gap:20px;">
+        <span style="display:inline-flex; align-items:center; gap:6px; background:#111; color:#f5c518; font-weight:800; font-size:12.5px; padding:8px 14px; border-radius:999px; width:fit-content;">{{ svc.tag }}</span>
+        <div>
+          <p style="margin:0 0 12px; font-weight:900; font-family:'Archivo',sans-serif; font-size:clamp(20px,2vw,26px); line-height:1.35; white-space:pre-line;">{{ svc.title }}</p>
+          <p style="margin:0; font-weight:700; font-size:13.5px; color:#A8890F; line-height:1.7; white-space:pre-line;">{{ svc.highlight }}</p>
+        </div>
+        <div style="border-radius:14px; overflow:hidden; background:#f1efe8; border:1px solid rgba(0,0,0,0.06); aspect-ratio:780/810; display:flex; align-items:center; justify-content:center;">
+          <img src="{{ svc.img }}" alt="{{ svc.tag }}" style="width:auto; height:100%; max-width:100%; object-fit:contain; display:block;"/>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- PRODUCT SHOWCASE (YELLOW BAND) -->
+  <section data-screen-label="Lineup" style="background:#f5c518; padding:64px 32px;">
+    <div style="max-width:1360px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <div style="background:#111; border-radius:18px; overflow:hidden; aspect-ratio:1/1; display:flex; flex-direction:column; justify-content:flex-end; padding:0; position:relative;">
+        <sc-for list="{{ entryReports }}" as="rep" hint-placeholder-count="6">
+          <img src="{{ rep.src }}" alt="플레이스 순위 신규진입 리포트" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:left top; opacity:{{ rep.opacity }}; transition:opacity 0.8s ease;"/>
+        </sc-for>
+        <div style="position:relative; z-index:2; padding:28px; background:linear-gradient(to top, rgba(17,17,17,0.9), rgba(17,17,17,0));">
+          <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+            <p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(22px,2.4vw,30px); color:#ecebe7;">1페이지 진입</p>
+            <p style="margin:0; font-weight:800; font-size:14px; color:#f5c518;">시작은 확실한 유입으로</p>
+          </div>
+        </div>
+      </div>
+      <div style="background:#111; border-radius:18px; overflow:hidden; aspect-ratio:1/1; display:flex; flex-direction:column; justify-content:flex-end; padding:0; position:relative;">
+        <sc-for list="{{ rankReports }}" as="rep" hint-placeholder-count="9">
+          <img src="{{ rep.src }}" alt="플레이스 순위 유지 리포트" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:left top; opacity:{{ rep.opacity }}; transition:opacity 0.8s ease;"/>
+        </sc-for>
+        <div style="position:relative; z-index:2; padding:28px; background:linear-gradient(to top, rgba(17,17,17,0.9), rgba(17,17,17,0));">
+          <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+            <p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(22px,2.4vw,30px); color:#ecebe7;">1페이지 유지</p>
+            <p style="margin:0; font-weight:800; font-size:14px; color:#f5c518;">순위는 지키는 게 진짜 실력입니다</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFIT -->
+  <section data-screen-label="Benefits" style="max-width:1360px; margin:0 auto; padding:80px 32px 20px;">
+    <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(0,0,0,0.15); border-radius:999px; padding:5px 12px;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>BENEFIT</span>
+  </section>
+  <section data-screen-label="Benefits row" style="max-width:1360px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:26px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between; gap:18px;">
+      <span style="color:#f5c518; font-size:18px; letter-spacing:2px;">★★★★★</span>
+      <div><p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:38px;">{{ retentionDisplay }}</p><p style="margin:6px 0 0; font-size:13px; color:#555;">계약 연장률 · 탑애드와 계속 함께하는 이유</p></div>
+    </div>
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:26px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between; gap:18px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">MANAGER</span>
+      <div><p style="margin:0 0 8px; font-weight:700; font-size:16px;">쉬운 소통을 위한<br/>전담 매니저 배정</p><p style="margin:0; font-size:13px; color:#555; line-height:1.6;">담당 매니저가 처음부터 끝까지 매장 상황에 맞는 전략을 안내해 드립니다.</p></div>
+    </div>
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:26px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between; gap:18px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">REPORT</span>
+      <div><p style="margin:0 0 8px; font-weight:700; font-size:16px;">정확한 순위 리포트<br/>정기 발송</p><p style="margin:0; font-size:13px; color:#555; line-height:1.6;">주간·월간 순위 변화를 투명하게 공유해 드립니다.</p></div>
+    </div>
+    <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:26px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between; gap:18px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#888;">CARE</span>
+      <div><p style="margin:0 0 8px; font-weight:700; font-size:16px;">순위 하락 시<br/>무상 재작업</p><p style="margin:0; font-size:13px; color:#555; line-height:1.6;">계약 기간 내 순위가 떨어지면 추가 비용 없이 다시 끌어올립니다.</p></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section data-screen-label="Process" style="max-width:1360px; margin:0 auto; padding:80px 32px 20px;">
+    <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(0,0,0,0.15); border-radius:999px; padding:5px 12px;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>PROCESS</span>
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(28px,3.6vw,44px); margin:20px 0 0; line-height:1.15;">상담부터 순위 리포트까지,<br/>탑애드가 직접 책임집니다</h2>
+  </section>
+  <section data-screen-label="Process steps" style="max-width:1360px; margin:0 auto; padding:32px 32px 80px; display:grid; grid-template-columns:repeat(5,1fr); gap:8px;">
+    <sc-for list="{{ processSteps }}" as="step" hint-placeholder-count="5">
+      <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:24px 20px; min-height:200px; display:flex; flex-direction:column; justify-content:space-between; gap:20px;">
+        <span style="font-family:'Archivo',sans-serif; font-weight:900; font-size:26px; color:#dcae0e;">{{ step.num }}</span>
+        <div><p style="margin:0 0 6px; font-weight:700; font-size:15px; line-height:1.3;">{{ step.title }}</p><p style="margin:0; font-size:12.5px; color:#555; line-height:1.6;">{{ step.desc }}</p></div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section data-screen-label="Guarantee" style="max-width:1360px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+    <sc-for list="{{ guarantees }}" as="g" hint-placeholder-count="3">
+      <div style="background:#2a2a2a; color:#ecebe7; border-radius:16px; padding:28px; min-height:170px; display:flex; flex-direction:column; justify-content:space-between; gap:16px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#f5c518;">{{ g.tag }}</span>
+        <div><p style="margin:0 0 8px; font-weight:700; font-size:16px;">{{ g.title }}</p><p style="margin:0; font-size:13px; color:#bbb; line-height:1.6;">{{ g.desc }}</p></div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- BIG STATEMENT -->
+  <section data-screen-label="Slogan 2" style="background:#111; padding:90px 32px;">
+    <div style="max-width:1360px; margin:0 auto;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:900; color:#ecebe7; font-size:clamp(36px,7vw,108px); line-height:1; margin:0; text-transform:lowercase;">make your place no.1</h2>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section data-screen-label="FAQ" style="max-width:1360px; margin:0 auto; padding:80px 32px 20px;">
+    <span style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(0,0,0,0.15); border-radius:999px; padding:5px 12px;"><span style="width:6px;height:6px;border-radius:50%;background:#f5c518;"></span>FAQ</span>
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(28px,3.6vw,44px); margin:20px 0 0; line-height:1.15;">자주 묻는 질문</h2>
+  </section>
+  <section data-screen-label="FAQ list" style="max-width:1360px; margin:0 auto; padding:32px 32px 80px; display:flex; flex-direction:column; gap:8px;">
+    <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="4">
+      <div style="background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; overflow:hidden;">
+        <button onClick="{{ faq.toggle }}" style="width:100%; text-align:left; background:transparent; border:none; cursor:pointer; padding:22px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; font-family:inherit;">
+          <span style="font-weight:700; font-size:15px;">{{ faq.q }}</span>
+          <span style="flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#f5c518; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; transition:transform 0.2s ease; transform:{{ faq.rotate }};">+</span>
+        </button>
+        <sc-if value="{{ faq.open }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0; padding:0 24px 22px; font-size:13.5px; color:#555; line-height:1.7;">{{ faq.a }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="contact" data-screen-label="Final CTA" style="max-width:1360px; margin:0 auto; padding:60px 32px 100px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px;">
+    <p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,40px); line-height:1.3;">확실한 순위 상승, 지금 확인해보세요.<br/>디테일한 전문 상담 받아보세요.</p>
+    <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#111; color:#f5c518; font-weight:700; font-size:15px; padding:16px 30px; border-radius:999px; display:flex; align-items:center; gap:8px;" style-hover="background:#2a2a2a;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2C6.48 2 2 5.66 2 10.2c0 2.9 1.87 5.45 4.7 6.9-.2.76-.74 2.76-.85 3.19-.13.53.2.53.42.38.17-.11 2.7-1.83 3.8-2.58.62.09 1.26.14 1.93.14 5.52 0 10-3.66 10-8.2S17.52 2 12 2z"/></svg>카카오톡으로 상담 신청하기</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer data-screen-label="Footer" style="background:#111; color:#ecebe7;">
+    <div style="max-width:1360px; margin:0 auto; padding:56px 32px 32px; display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+      <div style="display:flex; flex-direction:column; gap:18px; align-items:flex-start;">
+        <div style="display:flex; align-items:center;">
+          <img src="assets/topad-logo-dark.png" alt="TOP AD" style="height:57px; width:auto; display:block;"/>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#ccc;">라이트</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#ccc;">대표 조상일</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#ccc;">충청남도 보령시 진동2길 11, 405호</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#ccc;">사업자등록번호 315-67-00638</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#888; font-style:italic;">[대표 전화번호]</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:7px 14px; color:#888; font-style:italic;">[문의 이메일]</span>
+        </div>
+      </div>
+      <div style="background:#2a2a2a; border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+        <p style="margin:0; font-size:13px; color:#888;">Subscribe our newsletter and updates<br/>탑애드의 주요 소식을 받아보세요.</p>
+        <div style="display:flex; gap:0; width:100%; max-width:340px;">
+          <input type="email" placeholder="이메일 주소 입력" style="flex:1; padding:12px 16px; border-radius:999px 0 0 999px; border:1px solid rgba(255,255,255,0.2); background:transparent; color:#ecebe7; font-size:13px; outline:none;"/>
+          <button onClick="{{ handleSubscribe }}" style="border:none; background:#f5c518; color:#111; padding:0 18px; border-radius:0 999px 999px 0; font-weight:800; cursor:pointer;">↗</button>
+        </div>
+        <span style="font-size:12px; color:#f5c518;">{{ subscribeText }}</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;kakaoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://pf.kakao.com/_vxacwX&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;연락처&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navOpen: false,
+      subscribed: false,
+      counts: { clients: 0, teams: 0, staff: 0, retention: 0 },
+      countsStarted: false,
+      openFaq: 0,
+      reviewIndex: 0,
+      rankReportIndex: 0,
+      entryReportIndex: 0,
+      kakaoSlideIndex: 0
+    };
+    this.statsRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !this.state.countsStarted) {
+          this.setState({ countsStarted: true });
+          this.animateCounts();
+        }
+      });
+    }, { threshold: 0.3 });
+    if (this.statsRef.current) this.observer.observe(this.statsRef.current);
+
+    this.reviewTimer = setInterval(() => {
+      this.setState((s) => ({ reviewIndex: s.reviewIndex + 1 }));
+    }, 4500);
+
+    this.rankReportTimer = setInterval(() => {
+      this.setState((s) => ({ rankReportIndex: (s.rankReportIndex + 1) % 9 }));
+    }, 2600);
+
+    this.entryReportTimer = setInterval(() => {
+      this.setState((s) => ({ entryReportIndex: (s.entryReportIndex + 1) % 6 }));
+    }, 2600);
+
+    this.kakaoSlideTimer = setInterval(() => {
+      this.setState((s) => ({ kakaoSlideIndex: (s.kakaoSlideIndex + 1) % 2 }));
+    }, 3200);
+  }
+
+  componentWillUnmount() {
+    if (this.observer) this.observer.disconnect();
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.reviewTimer) clearInterval(this.reviewTimer);
+    if (this.rankReportTimer) clearInterval(this.rankReportTimer);
+    if (this.entryReportTimer) clearInterval(this.entryReportTimer);
+    if (this.kakaoSlideTimer) clearInterval(this.kakaoSlideTimer);
+  }
+
+  animateCounts() {
+    const targets = { clients: 1000, teams: 5, staff: 30, retention: 98 };
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      this.setState({
+        counts: {
+          clients: Math.round(targets.clients * eased),
+          teams: Math.round(targets.teams * eased),
+          staff: Math.round(targets.staff * eased),
+          retention: Math.round(targets.retention * eased)
+        }
+      });
+      if (t < 1) this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+
+  renderVals() {
+    const services = [
+      {
+        tag: '1. 플레이스 상위노출',
+        title: '소비자가 많이 찾는 키워드에서\n1페이지에 자리 잡습니다',
+        highlight: '비싸고 효과 없는 CPC 광고에 힘쓰지 마세요.\n네이버 통합 메인페이지 노출을 목표로 합니다.',
+        img: 'assets/svc-rank-final.png'
+      },
+      {
+        tag: '2. 블로그 리뷰',
+        title: '가까운 잠재고객에게\n믿을 수 있는 매장으로',
+        highlight: '고퀄리티 블로그 콘텐츠로\n검색 노출과 신뢰도를 함께 끌어올립니다.',
+        img: 'assets/svc-blog-final.png'
+      },
+      {
+        tag: '3. 영수증 리뷰',
+        title: '진짜 다녀간 흔적이\n가장 강력한 설득입니다',
+        highlight: '실방문 인증 후기를 꾸준히 쌓아\n잠재고객의 망설임을 없애드립니다.',
+        img: 'assets/svc-receipt-final.png'
+      },
+      {
+        tag: '4. 카페 바이럴 + 체험단',
+        title: '자연스러운 언급으로\n브랜드 신뢰도를 쌓습니다',
+        highlight: '일반 게시글 속 자연스러운 언급과 체험단 리뷰로\n브랜드 인지도와 구매 전환을 함께 끌어올립니다.',
+        img: 'assets/svc-viral-final.png'
+      }
+    ];
+
+    const industries = [
+      {
+        tag: 'MEDICAL',
+        title: '병의원',
+        examples: '성형외과 · 피부과 · 치과 · 한의원 · 정형외과 · 안과 · 이비인후과 · 내과·가정의학과 · 동물병원 등',
+        recommend: '월보장형 + 블로그리뷰',
+        strategy: '질환명·시술명과 지역 키워드를 결합한 정밀 타깃팅으로 상위노출을 잡고, 치료 후기·원장 인터뷰 등 신뢰 콘텐츠 중심의 블로그로 문의 전환을 유도합니다. 의료광고 심의 기준을 준수하며 장기 유지관리형으로 운영합니다.'
+      },
+      {
+        tag: 'BEAUTY',
+        title: '뷰티',
+        examples: '헤어샵 · 미용실 · 네일 · 속눈썹 · 왁싱 · 피부관리실 · 에스테틱 · 마사지 등',
+        recommend: '월보장형 + 영수증리뷰',
+        strategy: '시술 전후 비주얼 콘텐츠와 인스타그램 연계 바이럴로 빠르게 인지도를 확산시키고, 영수증 리뷰를 꾸준히 쌓아 재방문·신규 예약 전환율을 높입니다. 시즌·트렌드 키워드에 민첩하게 대응합니다.'
+      },
+      {
+        tag: 'PROFESSIONAL',
+        title: '전문업종',
+        examples: '법무사 · 세무사 · 회계사 · 인테리어·리모델링 · 이사·청소·철거 · 학원·교육 · 펜션·숙박 · 헬스장·PT·필라테스 등',
+        recommend: '월보장형 + 블로그리뷰',
+        strategy: '"지역+긴급 키워드" 상위노출을 최우선으로 잡아 즉시 문의·전화 연결을 늘립니다. 전문 지식 기반 블로그로 신뢰를 쌓고, 노출 안정성을 최우선하는 월보장형 운영을 권장합니다.'
+      },
+      {
+        tag: 'DINING',
+        title: '맛집',
+        examples: '한식 · 고기집 · 횟집 · 카페 · 디저트 · 베이커리 · 브런치 · 술집·이자카야 등',
+        recommend: '월관리형만 가능 + 영수증리뷰',
+        strategy: '감성적인 비주얼 콘텐츠와 블로그·인플루언서 체험단 후기로 방문 욕구를 자극하고, 영수증 리뷰로 진성 후기를 축적합니다. 맘카페 체험단을 활용한 입소문 확산에 특히 강합니다.'
+      }
+    ];
+
+    const partnerLogos = ['네이버', '카카오', '인스타그램', '당근마켓', '배달의민족', '구글'];
+    const navLinks = ['서비스', '회사소개', '포트폴리오', '문의하기'];
+
+    const dotColors = ['#dcae0e', '#f5c518', '#111111', '#b8930c'];
+    const dots = Array.from({ length: 48 }, (_, i) => ({
+      color: i === 22 ? '#e85d75' : dotColors[i % dotColors.length]
+    }));
+
+    const c = this.state.counts;
+
+    const reviews = [
+      { text: '3개월 만에 플레이스 순위가 눈에 띄게 올라서 예약 문의가 확실히 늘었어요.', who: '한식당 원장' },
+      { text: '전담 매니저가 꼼꼼하게 챙겨줘서 처음 마케팅 맡기는 입장에서도 안심됐습니다.', who: '피부과 실장' },
+      { text: '리뷰가 쌓이니까 손님들이 먼저 후기 보고 왔다고 말씀하시더라고요.', who: '헤어샵 원장' },
+      { text: '순위 리포트를 매번 투명하게 보내줘서 결과를 눈으로 확인할 수 있었어요.', who: '카페 사장님' },
+      { text: '문의 전화가 확실히 늘었고, 재계약도 고민 없이 하고 있습니다.', who: '법무사 사무소 대표' },
+      { text: '체험단 후기 이후로 지역 맘카페에서 저희 가게 얘기가 자주 보여요.', who: '베이커리 사장님' }
+    ];
+    const n = reviews.length;
+    const idx = this.state.reviewIndex;
+    const reviewLeft = reviews[idx % n];
+    const reviewRight = reviews[(idx + 1) % n];
+
+    const rankReports = Array.from({ length: 9 }, (_, i) => ({
+      src: 'assets/rank-report-' + (i + 1) + '.jpg',
+      opacity: i === this.state.rankReportIndex ? 1 : 0
+    }));
+
+    const entryReports = Array.from({ length: 6 }, (_, i) => ({
+      src: 'assets/entry-report-' + (i + 1) + '.jpg',
+      opacity: i === this.state.entryReportIndex ? 1 : 0
+    }));
+
+    const kakaoTalks = Array.from({ length: 5 }, (_, i) => ({
+      src: 'assets/kakao-talk-' + (i + 1) + '.jpg'
+    }));
+    const kakaoSlideTransform = 'translateX(calc(-' + this.state.kakaoSlideIndex + ' * (25% + 12px)))';
+
+    const processSteps = [
+      { num: '01', title: '상담 신청', desc: '카카오톡 오픈채팅으로 매장 정보와 목표 순위를 편하게 남겨주세요.' },
+      { num: '02', title: '매장 진단', desc: '현재 노출 순위와 경쟁 매장을 분석해 상황을 정확히 파악합니다.' },
+      { num: '03', title: '전략 설계', desc: '업종·지역 특성에 맞는 상위노출 전략과 채널 조합을 제안합니다.' },
+      { num: '04', title: '작업 실행', desc: '전담팀이 상위노출·리뷰·바이럴 작업을 직접 진행합니다.' },
+      { num: '05', title: '순위 리포트', desc: '정기적으로 순위 변화를 투명하게 공유해 드립니다.' }
+    ];
+
+    const guarantees = [
+      { tag: 'DIRECT OPS', title: '재대행 없는 직접 운영', desc: '5개 팀, 30명+ 인력이 외주 없이 처음부터 끝까지 직접 작업합니다.' },
+      { tag: 'FLEXIBLE', title: '유연한 계약 기간', desc: '월 단위 계약으로 부담 없이 시작하고, 만족하실 때만 연장하세요.' },
+      { tag: 'TRANSPARENT', title: '숨김 없는 정직한 견적', desc: '추가 비용 없이 처음 안내드린 조건 그대로 진행합니다.' }
+    ];
+
+    const faqs = [
+      { q: '계약 기간은 어떻게 되나요?', a: '월보장형·월관리형 모두 월 단위로 진행되며, 장기 계약을 강요하지 않습니다. 결과에 만족하실 때만 자유롭게 연장하실 수 있습니다.' },
+      { q: '순위가 오르지 않으면 어떻게 되나요?', a: '계약 기간 내 순위가 하락하거나 목표에 도달하지 못하면 추가 비용 없이 무상으로 재작업을 진행합니다.' },
+      { q: '외주 없이 직접 작업하나요?', a: '네. 5개 팀, 30명 이상의 자체 인력이 상위노출부터 리뷰, 바이럴까지 전 과정을 직접 운영합니다.' },
+      { q: '진행 상황은 어떻게 확인할 수 있나요?', a: '전담 매니저가 배정되어 정기적으로 순위 변화와 작업 리포트를 투명하게 공유해 드립니다.' }
+    ].map((f, i) => ({
+      ...f,
+      open: this.state.openFaq === i,
+      rotate: this.state.openFaq === i ? 'rotate(45deg)' : 'rotate(0deg)',
+      toggle: () => this.setState((s) => ({ openFaq: s.openFaq === i ? -1 : i }))
+    }));
+
+    return {
+      navOpen: this.state.navOpen,
+      toggleNav: () => this.setState((s) => ({ navOpen: !s.navOpen })),
+      closeNav: () => this.setState({ navOpen: false }),
+      statsRef: this.statsRef,
+      kakaoUrl: this.props.kakaoUrl || 'https://open.kakao.com/o/여기에_오픈채팅_링크_입력',
+      clientsDisplay: c.clients.toLocaleString() + '+',
+      teamsDisplay: c.teams + '+',
+      staffDisplay: c.staff + '+',
+      retentionDisplay: c.retention + '%',
+      services,
+      reviewLeft,
+      reviewRight,
+      rankReports,
+      entryReports,
+      kakaoTalks,
+      kakaoSlideTransform,
+      industries,
+      partnerLogos,
+      navLinks,
+      dots,
+      processSteps,
+      guarantees,
+      faqs,
+      subscribeText: this.state.subscribed ? '감사합니다! 곧 소식 보내드릴게요.' : '',
+      handleSubscribe: () => this.setState({ subscribed: true })
+    };
+  }
+}
+</script>
+</body>
+</html>
