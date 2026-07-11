@@ -64,7 +64,7 @@
         <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
           <a href="#" style="font-size:14px; font-weight:600; display:none;" class="nav-link">{{ link }}</a>
         </sc-for>
-        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#f5c518; color:#111; font-weight:700; font-size:14px; padding:12px 22px; border-radius:999px; transition:transform 0.15s ease; display:flex; align-items:center; gap:6px;" style-hover="transform:translateY(-3px);"><svg width="15" height="15" viewBox="0 0 24 24" fill="#111"><path d="M12 2C6.48 2 2 5.66 2 10.2c0 2.9 1.87 5.45 4.7 6.9-.2.76-.74 2.76-.85 3.19-.13.53.2.53.42.38.17-.11 2.7-1.83 3.8-2.58.62.09 1.26.14 1.93.14 5.52 0 10-3.66 10-8.2S17.52 2 12 2z"/></svg>상담 신청하기</a>
+        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#f5c518; color:#111; font-weight:700; font-size:14px; padding:12px 22px; border-radius:999px; transition:transform 0.15s ease; display:flex; align-items:center; gap:6px;" style-hover="transform:translateY(-3px);">무료진단하기</a>
         <button onClick="{{ toggleNav }}" aria-label="menu" style="display:grid; grid-template-columns:repeat(3,4px); grid-template-rows:repeat(3,4px); gap:3px; width:34px; height:34px; place-items:center; background:transparent; border:1px solid rgba(0,0,0,0.15); border-radius:10px; cursor:pointer;">
           <span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span>
           <span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span><span style="width:4px;height:4px;border-radius:50%;background:#111;"></span>
@@ -86,7 +86,7 @@
         <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="4">
           <a href="#" onClick="{{ closeNav }}" style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,7vw,64px); color:#ecebe7;" style-hover="color:#f5c518;">{{ link }}</a>
         </sc-for>
-        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" onClick="{{ closeNav }}" style="margin-top:12px; background:#f5c518; color:#111; font-weight:700; font-size:15px; padding:14px 26px; border-radius:999px;">카카오톡 상담 신청 ↗</a>
+        <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" onClick="{{ closeNav }}" style="margin-top:12px; background:#f5c518; color:#111; font-weight:700; font-size:15px; padding:14px 26px; border-radius:999px;">무료진단하기 ↗</a>
       </div>
     </div>
   </sc-if>
@@ -306,7 +306,7 @@
   <!-- FINAL CTA -->
   <section id="contact" data-screen-label="Final CTA" style="max-width:1360px; margin:0 auto; padding:60px 32px 100px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px;">
     <p style="margin:0; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,40px); line-height:1.3;">확실한 순위 상승, 지금 확인해보세요.<br/>디테일한 전문 상담 받아보세요.</p>
-    <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#111; color:#f5c518; font-weight:700; font-size:15px; padding:16px 30px; border-radius:999px; display:flex; align-items:center; gap:8px;" style-hover="background:#2a2a2a;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518"><path d="M12 2C6.48 2 2 5.66 2 10.2c0 2.9 1.87 5.45 4.7 6.9-.2.76-.74 2.76-.85 3.19-.13.53.2.53.42.38.17-.11 2.7-1.83 3.8-2.58.62.09 1.26.14 1.93.14 5.52 0 10-3.66 10-8.2S17.52 2 12 2z"/></svg>카카오톡으로 상담 신청하기</a>
+    <a href="{{ kakaoUrl }}" target="_blank" rel="noopener" style="background:#111; color:#f5c518; font-weight:700; font-size:15px; padding:16px 30px; border-radius:999px; display:flex; align-items:center; gap:8px;" style-hover="background:#2a2a2a;">무료진단하기</a>
   </section>
 
   <!-- FOOTER -->
@@ -339,7 +339,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;kakaoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://pf.kakao.com/_vxacwX&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;연락처&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;kakaoUrl&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;https://tally.so/r/5B5NlN&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;연락처&quot;}}">
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -542,7 +542,7 @@ class Component extends DCLogic {
       toggleNav: () => this.setState((s) => ({ navOpen: !s.navOpen })),
       closeNav: () => this.setState({ navOpen: false }),
       statsRef: this.statsRef,
-      kakaoUrl: this.props.kakaoUrl || 'https://open.kakao.com/o/여기에_오픈채팅_링크_입력',
+      kakaoUrl: this.props.kakaoUrl || 'https://tally.so/r/5B5NlN',
       clientsDisplay: c.clients.toLocaleString() + '+',
       teamsDisplay: c.teams + '+',
       staffDisplay: c.staff + '+',
