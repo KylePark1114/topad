@@ -1,7 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "//": "저장소 루트가 곧 배포될 사이트다. 빌드 단계에 의존하지 않는다 — Vercel 이 그것을 실행하지 않아 원본 번들이 그대로 서빙된 적이 있다.",
-  "framework": null,
   "headers": [
     {
       "source": "/assets/(.*)",
