@@ -94,3 +94,28 @@ html = html.replace('<html>', '<html lang="ko">');
 html = html.replace('</head>', head + '</head>');
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 console.log('SEO head 주입 완료');
+
+// ── 진단 신청 → 대시보드 DB ─────────────────────────────────────────────────
+// 폼은 FormSubmit(메일)로만 간다. 메일은 사람이 읽어야 끝나고, 읽기 전까지
+// 아무것도 자동으로 이어지지 않는다. app.top-ad.net/api/consult 로도 보내면
+// 접수 → 업체 특정 → 진단 리포트 초안까지 자동으로 이어진다.
+//
+// 번들 안의 제출 핸들러를 고치지 않는다. 거기는 JSON 으로 이스케이프된 한
+// 줄이라 문자열 수술을 하면 다음 번들 교체 때 깨진다. 덧붙이는 쪽이 안전하다.
+const injectPath = path.join(__dirname, 'inject', 'consult.js');
+if (fs.existsSync(injectPath)) {
+  const consult = fs.readFileSync(injectPath, 'utf8');
+  let out = fs.readFileSync(path.join(OUT, 'index.html'), 'utf8');
+  if (out.includes('app.top-ad.net/api/consult')) {
+    console.log('상담 접수 스크립트: 이미 들어 있음');
+  } else if (!out.includes('</body>')) {
+    console.warn('[warn] </body> 를 찾지 못해 상담 접수 스크립트를 넣지 못했다');
+  } else {
+    const nl = String.fromCharCode(10);
+    out = out.replace('</body>', ['<script>', consult, '</script>', '</body>'].join(nl));
+    fs.writeFileSync(path.join(OUT, 'index.html'), out);
+    console.log('상담 접수 스크립트 주입 완료');
+  }
+} else {
+  console.warn('[warn] inject/consult.js 가 없다 — 상담 접수가 메일로만 간다');
+}
